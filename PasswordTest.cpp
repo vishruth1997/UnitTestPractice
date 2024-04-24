@@ -44,3 +44,35 @@ TEST(PasswordTest, upper_lower_password1)
 	bool actual = my_password.has_mixed_case("password");
 	ASSERT_EQ(false, actual);
 }
+TEST(PasswordTest, emptyPassword)
+{
+	Password my_password;
+	bool actual = my_password.has_mixed_case("");
+	ASSERT_EQ(false, actual);
+}
+TEST(PasswordTest, aplha_num)
+{
+	Password my_password;
+	bool actual = my_password.has_mixed_case("Tn71SDas");
+	ASSERT_EQ(true, actual);
+}
+TEST(PasswordTest, Last_capital)
+{
+	Password my_password;
+	bool actual = my_password.has_mixed_case("passworD");
+	ASSERT_EQ(true, actual);
+}
+TEST(PasswordTest, original_password)
+{
+	Password my_password;
+	bool actual = my_password.authenticate("SomePassword");
+	ASSERT_EQ(false, actual);
+}
+TEST(PasswordTest, set_password)
+{
+	Password my_password;
+	my_password.set("NewPassword123");
+	bool actual = my_password.authenticate("NewPassword123");
+	ASSERT_EQ(true, actual);
+}
+
